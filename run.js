@@ -729,13 +729,21 @@ if (!canalesRacha.includes(message.channel.id)) return;
     if (ahora - user.lastAntiSpam < 3000) return;
     user.lastAntiSpam = ahora;
 
-    // Si pasaron 24 horas o más desde la última subida, sumamos racha
-    if (ahora - user.lastStreakUpdate >= COOLDOWN_24_HORAS) {
-      user.streakDays += 1;
-      user.lastStreakUpdate = ahora;
-    }
+ // Si pasaron 24 horas o más desde la última subida, sumamos racha
+if (ahora - user.lastStreakUpdate >= COOLDOWN_24_HORAS) {
+  user.streakDays += 1;
+  user.lastStreakUpdate = ahora;
 
-    await user.save();
+  const canalAvisos = client.channels.cache.get("1498778534636818504");
+
+  if (canalAvisos) {
+    await canalAvisos.send(
+      `🔥 <@${message.author.id}> ha aumentado su racha a **${user.streakDays} días**. ¡Felicidades! 🎉`
+    );
+  }
+}
+
+await user.save();
 
   } catch (err) {
     console.error("❌ MESSAGE ERROR:", err);
