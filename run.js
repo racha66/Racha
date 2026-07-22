@@ -645,7 +645,12 @@ if (message.content.trim().toLowerCase() === "<reclamar") {
     embeds: [embed]
   });
 }
-    if (message.channel.id !== "1498848652754419913") return;
+    const canalesRacha = [
+  "1498848652754419913",
+  "1425641857173557249"
+];
+
+if (!canalesRacha.includes(message.channel.id)) return;
 
     // 📖 COMANDO DE RECOMPENSAS
     if (message.content.trim().toLowerCase() === "<recompensas") {
