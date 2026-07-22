@@ -727,10 +727,21 @@ if (!canalesRacha.includes(message.channel.id)) return;
     }
 
     if (ahora - user.lastAntiSpam < 3000) return;
-    user.lastAntiSpam = ahora;
+user.lastAntiSpam = ahora;
 
- // Si pasaron 24 horas o más desde la última subida, sumamos racha
+console.log({
+  usuario: message.author.tag,
+  ahora,
+  lastStreakUpdate: user.lastStreakUpdate,
+  diferencia: ahora - user.lastStreakUpdate,
+  cooldown: COOLDOWN_24_HORAS
+});
+
+// Si pasaron 24 horas o más desde la última subida, sumamos racha
 if (ahora - user.lastStreakUpdate >= COOLDOWN_24_HORAS) {
+
+  console.log("✅ SUBIENDO RACHA");
+
   user.streakDays += 1;
   user.lastStreakUpdate = ahora;
 
@@ -744,7 +755,7 @@ if (ahora - user.lastStreakUpdate >= COOLDOWN_24_HORAS) {
 }
 
 await user.save();
-
+    
   } catch (err) {
     console.error("❌ MESSAGE ERROR:", err);
   }
